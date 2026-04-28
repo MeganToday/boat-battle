@@ -4,8 +4,185 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Boat Battle</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+  <!-- ═══ MAIN MENU ════════════════════════════════════════════════════════ -->
+  <div id="main-menu" class="screen">
+    <div class="menu-bg"></div>
+    <div class="menu-title">
+      <h1>⚓ BOAT BATTLE</h1>
+      <p class="subtitle">Command the Seas</p>
+    </div>
+    <div class="menu-sections">
+
+      <div class="menu-section" id="section-battle">
+        <h2>BATTLE</h2>
+        <div class="battle-option">
+          <button class="btn-primary" id="btn-adaptive-ai">Adaptive AI</button>
+          <button class="btn-icon" id="btn-adaptive-settings" title="Settings">⚙</button>
+        </div>
+        <div class="ai-info">
+          <span id="ai-stage-display">Stage: Cadet</span>
+          <span id="ai-wins-display">Wins: 0/3</span>
+        </div>
+        <div class="battle-option" style="margin-top:10px">
+          <button class="btn-primary btn-practice-style" id="btn-practice">Practice</button>
+          <button class="btn-icon" id="btn-practice-settings" title="Settings">⚙</button>
+        </div>
+      </div>
+
+      <div class="menu-section" id="section-upgrades">
+        <h2>UPGRADES</h2>
+        <p class="section-desc">Permanently improve your fleet and base</p>
+        <p class="currency-line">⚙ <span id="upgrade-currency">0</span> points available</p>
+        <button class="btn-secondary" id="btn-upgrades">Open Upgrades</button>
+      </div>
+
+      <div class="menu-section locked" id="section-captains">
+        <h2>CAPTAINS 🔒</h2>
+        <p class="section-desc">Win 3 Adaptive AI battles to unlock</p>
+        <p id="captains-progress" class="currency-line">Progress: 0/3</p>
+        <button class="btn-secondary" id="btn-captains" disabled>Open Captains</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ MODALS ═══════════════════════════════════════════════════════════ -->
+  <div id="modal-adaptive-settings" class="modal hidden">
+    <div class="modal-content">
+      <h2>⚙ Adaptive AI Settings</h2>
+      <p>Adjust your current difficulty stage</p>
+      <div class="difficulty-control">
+        <button id="btn-difficulty-down">◀ Easier</button>
+        <span id="difficulty-label" class="diff-label">Cadet</span>
+        <button id="btn-difficulty-up">Harder ▶</button>
+      </div>
+      <p class="wins-note">Wins at stage: <span id="modal-wins-display">0/3</span></p>
+      <p class="modal-hint">Moving to an easier stage resets your win count at that stage.</p>
+      <button class="btn-close" id="btn-close-adaptive-settings">Close</button>
+    </div>
+  </div>
+
+  <div id="modal-practice-settings" class="modal hidden">
+    <div class="modal-content">
+      <h2>⚙ Practice Settings</h2>
+      <div class="setting-row">
+        <label for="practice-difficulty">Bot Difficulty:</label>
+        <select id="practice-difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <button class="btn-close" id="btn-close-practice-settings">Close</button>
+    </div>
+  </div>
+
+  <!-- ═══ UPGRADES SCREEN ══════════════════════════════════════════════════ -->
+  <div id="upgrades-screen" class="screen">
+    <div class="screen-header">
+      <button class="btn-back" id="btn-back-upgrades">← Back</button>
+      <h2>UPGRADES</h2>
+      <span class="header-currency">⚙ <span id="upgrade-currency-upgrades">0</span></span>
+    </div>
+    <div class="upgrades-grid" id="upgrades-grid"></div>
+  </div>
+
+  <!-- ═══ CAPTAINS SCREEN ══════════════════════════════════════════════════ -->
+  <div id="captains-screen" class="screen">
+    <div class="screen-header">
+      <button class="btn-back" id="btn-back-captains">← Back</button>
+      <h2>CAPTAINS</h2>
+      <span class="header-currency">⚓ <span id="captain-currency-display">0</span></span>
+    </div>
+    <div id="captains-content" class="captains-content"></div>
+  </div>
+
+  <!-- ═══ GAME SCREEN ═══════════════════════════════════════════════════════ -->
+  <div id="game-screen" class="screen">
+
+    <!-- Top HUD -->
+    <div id="game-hud-top">
+      <div class="hud-left">
+        <button id="btn-surrender" class="btn-danger">⚑ Surrender</button>
+        <div id="weather-indicator" class="hidden storm-badge">🌩 Storm</div>
+      </div>
+      <div class="hud-center">
+        <div class="currency-hud">
+          <div class="hud-item gold">💰 <span id="hud-gold">200</span></div>
+          <div class="hud-item oil" id="hud-oil-item">⛽ <span id="hud-oil">0</span>/<span id="hud-oil-max">0</span></div>
+          <div class="hud-item upgrade">⚙ <span id="hud-upgrade-cur">0</span></div>
+        </div>
+      </div>
+      <div class="hud-right">
+        <span id="hud-stage" class="stage-badge">Cadet</span>
+        <span class="hotkey-hint">Hold H for hotkeys</span>
+      </div>
+    </div>
+
+    <!-- Canvas -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- Bottom HUD -->
+    <div id="game-hud-bottom">
+      <div id="selection-panel">
+        <p id="selection-name">Select a unit or building</p>
+        <div id="selection-stats" class="stat-chips"></div>
+        <div id="ability-bar"></div>
+      </div>
+      <div id="production-panel" style="display:none">
+        <div id="build-buttons" class="build-grid"></div>
+        <div id="queue-display" class="queue-grid"></div>
+      </div>
+    </div>
+
+    <!-- Minimap -->
+    <canvas id="minimap-canvas" width="200" height="120"></canvas>
+
+    <!-- Fleet group notifications -->
+    <div id="fleet-groups-display"></div>
+  </div>
+
+  <!-- ═══ POST-MATCH ════════════════════════════════════════════════════════ -->
+  <div id="post-match-screen" class="screen">
+    <div class="post-match-content">
+      <h1 id="post-match-result">Victory!</h1>
+      <div id="post-match-stats" class="match-stats"></div>
+      <div id="post-match-rewards" class="match-rewards"></div>
+      <div class="post-match-btns">
+        <button class="btn-primary" id="btn-play-again">Play Again</button>
+        <button class="btn-secondary" id="btn-return-menu">Main Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ HOTKEY OVERLAY ════════════════════════════════════════════════════ -->
+  <div id="hotkey-overlay" class="hidden overlay-panel">
+    <div class="hotkey-content">
+      <h3>Hotkeys</h3>
+      <div class="hotkey-row"><kbd>Arrow Keys / WASD</kbd><span>Pan camera</span></div>
+      <div class="hotkey-row"><kbd>Scroll Wheel</kbd><span>Zoom in/out</span></div>
+      <div class="hotkey-row"><kbd>Left Click</kbd><span>Select unit/building</span></div>
+      <div class="hotkey-row"><kbd>Left Drag</kbd><span>Box select units</span></div>
+      <div class="hotkey-row"><kbd>Right Click</kbd><span>Move / Attack / Capture</span></div>
+      <div class="hotkey-row"><kbd>Q</kbd><span>Use selected unit's ability</span></div>
+      <div class="hotkey-row"><kbd>1–5</kbd><span>Select fleet group</span></div>
+      <div class="hotkey-row"><kbd>Ctrl+1–5</kbd><span>Assign to fleet group</span></div>
+      <div class="hotkey-row"><kbd>Esc</kbd><span>Deselect all</span></div>
+      <div class="hotkey-row"><kbd>H</kbd><span>Toggle this overlay</span></div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/entities.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/hud.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

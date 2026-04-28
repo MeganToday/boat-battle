@@ -1,0 +1,119 @@
+I answered all of the questions and for the proposed features I either said yes or no and things to add or adapt to the previous suggestion. So now give more questions about the answered questions or previous prompt. 
+Follow-Up Implementation Questions        
+                                                                                                                       
+  1. Multi-unit selection — In RTS games, can you box-select multiple boats at once and move them as a group? Can you assign boats to numbered hotkey groups (e.g., press 1 to select fleet group 1)? This is a core RTS mechanic and needs Yes, you can box select units and put them in different groups to be selected with hotkeys.
+  to be decided early.                                                                                                   
+  2. Camera & minimap — Given the map takes 30+ seconds to cross, how does the player navigate? Can they pan by dragging,  zoom in/out, and should there be a minimap in the corner showing the full battlefield at once? You should Be able to pan around with your arrow keys. You can zoom in and out by squeezing your fingers together or pushing them apart to zoom in and out. There should also be a mini map in the Top right hand corner.                    
+  3. In-battle currency flow — You said income comes per second and from islands. When exactly does it arrive — is it a  smooth drip or a pulse every few seconds? And does destroying an enemy ship drop a small bonus currency pickup, or is income purely passive? You should always be getting a smooth currency flow, but whenever you defeat an enemy ship, There should be a 10-second timer where you could send a support ship over to gather scraps of the boat.  4. Oil mid-battle — If you run out of oil mid-battle, what happens to boats already deployed? Do they stop moving and   become sitting ducks, slow down, or do they keep running until destroyed? This changes how punishing oil mismanagement  is. Oil should act as supply. So if you have five extra oil, you should be able to buy a unit that Requires five or less oil for maintenance.
+  5. Island capture interruption — If a boat is mid-capture (sitting at island) and gets attacked, does the capture timer reset, pause, or continue? And does the boat have to survive the full duration, or does partial capture count for anything? When capturing an island, the boat should stay there unless the player moves it, in which it will cancel the Capture timer. So no matter what, even if another boat is attacking it, it should stay there, unless the player moves it. And while capturing, you should not be able to attack.
+  6. Workshop upgrades — What is the maximum number of production workshops you can buy per match? Is there a hard cap, You should be able to purchase one extra along with your starting workshop in your main base, and you should be able to purchase one workshop in any island you capture.
+  and what does each additional slot cost — flat price or escalating?                                                    
+  7. Surrender trigger — When you surrender, do you still receive the small "loss" currency reward? And is surrender  player-initiated only, or does the game prompt you ("Your fleet is nearly wiped — surrender?")?   No, there should just be a little button in the top left corner, and if you or your opponent clicks it, Whoever clicked it will automatically lose, and the other person will win.                  
+  8. Save data safety — Since you're using local storage, should we build an export/import save code feature from the start, so players can back up progress or move between devices?   Just keep it the same with the local storage, and we may add more later.                                                     
+                  
+  ---                                                                                                                    
+  Follow-Up Design Questions
+                            
+  1. Exact boat roster — You mentioned scouts, small/medium/large battlecruisers, aircraft carriers, submarines, and repair ships. How many distinct types are available at launch (before unlocking)? And do submarines have special Before unlocking more, you should start with a scout. A small and medium battle cruiser And a simple submarine.       
+  stealth mechanics — invisible unless a scout is nearby?
+  2. Base spell abilities — What kinds of spells should the base cast with its auto-generated energy? For example: a repair pulse (heals nearby friendly boats), a reveal (removes fog of war in an area briefly), or a cannon barrage (deals damage in a target zone)? How many ability slots does the base have? All the abilities should have a timed cooldown, which should be long except for simple ones like this scout chip, which may have an ability like "look out." It increases the sight range of that briefly for five seconds. But the other abilities should have a much longer cool down, depending on what they do. In some examples of things that might be abilities for Support: Boots. Maybe a 3% boost to all ships' defense in a surrounding area, or for a battle cruiser, a Temporary attack speed boost.
+  3. Captain assignment limits — In a single match, how many captains can you bring? One total, one per fleet group, or one per boat? And if a captained boat is sunk, is that captain "lost" for the rest of the match?  You should be able to assign one to simple boats, two to medium boats, and three to more complex boats with multiple abilities. Like a air craft career  may have 3 so that they could synergise with each other so one might help with defence one with offence and one for planes or special abilities.               
+  4. Difficulty stage count & thresholds — You said difficulty stops at some point. How many total stages exist (Easy →  Hard → Extra Hard → ?)? And how many wins at each stage are required before promoting? For example: 3 wins to leave  Easy, 5 to leave Hard? There should be seven different stages. And they should all require 3 wins to move up to the next. Tier 
+  5. Island upgrade path — When you upgrade an island into a port using in-battle currency, what are the stages? (e.g.,  Raw Island → Outpost → Port → Full Base?) What does each stage cost, and can the enemy destroy your upgrades?  It should start as an island, and then you can upgrade it into an outpost where you can repair any ships that you have built, then a port where you can build new ships. With the space of one workshop and Full base (which has built-in defenses), each of those will give you slightly more oil/supply. They should also increase in the in-battle currency cost For each upgrade you do.        
+  6. Permanent upgrade categories — What are the main upgrade trees in the Upgrades menu? For example: Hull upgrade (more HP), Weapons (damage), Fleet size (oil capacity increase), Base abilities (more energy gen)? Are boats unlocked through this menu too, or is that separate? All of the boats should have A similar base upgrade: one for HP, one for damage,But some should also have their own unique upgrades, so the scout should have a larger sight radius, and an aircraft carrier might have a higher amount of planes launched at once and for the aircraft career it should have an energy bar and you can send a squadron of planes out and those will deal damage to any enemies in a radius around the career and when the planes are out it will drain the energy and when it runs out the planes will come back into the boat. Also the submarine should have an upgrade in which it gives better dive invisibility so the submarine should have an ability where it submerges and it becomes invisible unless it gets too close to an enemy boat.
+  7. Weather event specifics — You said yes to weather. How frequent should storms be — one per match, random timing, or triggered at certain match durations? Should they affect both players equally, or can one side be sheltered depending  
+  on map position? The storms should be completely random. It may or may not give one player the advantage over another.
+  8. Hotkey layout for abilities — You said yes to special abilities with hotkeys. Should each boat type always have the same hotkey (e.g., Q always fires the ability of a selected boat), or do you want numbered keys per boat slot? And should abilities have visible cooldown timers on the UI?
+The ability should have a visible cooldown timer, and you should Have preset hotkeys for everything, but you can also change them in game.                                                                                                                         
+  ---             
+  New Feature Suggestions
+                         
+  Yes  1. Named fleet groups — Let the player assign boats to numbered groups (keys 1–5) so they can instantly select and
+  command a specific wing of their fleet without clicking. Essential for managing a large map.                           
+ Yes   2. Damage types & armor — Different boats deal different damage types (cannon, torpedo, aerial bomb). Heavy ships have
+  armor that reduces cannon damage but not torpedoes — creating a rock-paper-scissors counter system that rewards        
+  building diverse fleets.
+Yes   3. Visual progression on boats — As you buy permanent upgrades, your boats visually change to reflect their power level
+   (e.g., a fully upgraded battlecruiser looks noticeably different than a base one). Purely cosmetic reward for         
+  progression.
+Yes   4. Tutorial / first-match onboarding — A guided first match that walks through capturing an island, building a boat,   
+  using an ability, and destroying a base. Skippable for returning players, but unlocks a small currency bonus for       
+  completing it.
+Yes  5. Match-end report card — After each match, give the player a letter grade (A–F) based on efficiency: boats lost, time
+   taken, islands controlled, damage dealt. Higher grades give a small currency bonus multiplier on top of the base win  
+  reward.
+ Yes  6. Base ability upgrade path — In the Upgrades menu, let the player unlock and upgrade the base's spell slots. Start   
+  with one spell slot, unlock a second, then upgrade individual spell power and reduce their energy cost.                
+Yes  7. Island "last stand" mechanic — When you have a fully upgraded port and the enemy attacks it, it triggers a brief
+  countdown before falling — giving you a moment to send reinforcements. Adds tension and comeback potential late in     
+  matches.        
+Yes but they should cap out at a certain point 8. Captain level-up in battle — Captains gain experience during a match based on the kills their assigned boat gets.   
+  Earning enough XP in a single match gives a temporary in-match bonus (e.g., +5% speed for the rest of the game),       
+  rewarding aggressive play.
+
+Implementation Questions     
+                                                                    
+  1. Combat system — Is combat real-time (boats auto-attack when in range) or turn-based (you issue moves, then resolve)? Can you make it so it is real time in which you can move your boats to attack
+   This is the biggest architectural decision and affects almost everything else.
+  2. Map structure — Is the map a fixed grid of tiles, a free-form ocean you pan around, or a procedurally generated It should be a large play area where it may take 30 or more seconds for units to go from one side to the other
+ layout each match? How large is the play area?                                                                         
+  3. Boat control — Do you click a boat and click a destination (RTS-style), or is there a command queue system where you can chain orders?   It should be a rts style of game play.                                                                                                  
+  4. AI difficulty storage — Where does the adaptive difficulty level live between sessions? Local storage in the  browser, or is there a backend/account system planned?   First, let's do local storage, and we can upgrade from there.
+                                                               
+  5. Currency — Is there one currency (e.g., gold) used for both in-game boat production and the meta-progression upgrades/captains, or two separate currencies (in-match money vs. a persistent reward currency)?    There should be three different currencies:
+
+1. One of them is the in-battle currency that you will use to buy boats to fight against the enemy in battle.
+
+2. One for upgrading boats, which you get every time you win a battle or a very small amount whenever you lose a battle.
+
+3. And there should also be a currency for captains. You get a small amount every time you win a battle, but only when you win a battle.
+    
+  6. Island capture mechanic — How exactly does "harboring" work? Does a boat have to sit there for a duration, is it instant, and can the enemy recapture your islands? A boat would have to sit at an island for a few seconds to capture it, and once it does, it will gain some automatic defenses. If a boat were to come in range, it would start attacking with weapons on the island, and it'd give a small boost to any boats in the surrounding area of the same team. And only Higher-class ships should be able to harbor and capture the islands. So, scouts or support ships should not be able to capture islands?                                                                  
+  7. Boat production — Are boats built at the main base only, or can captured islands also produce units? Is there a build queue or a cooldown per boat type? To produce units, you start by only having one production slot in your main base, and you can queue that production slot up to five boats in the queue . But you can also use the in-battle currency to unlock more workshops, which will let you build more boats simultaneously. Also, you can upgrade islands that you capture into bases, which will then have one slot of boat production.                                                                        
+  8. Win/loss detection — Is the only win condition destroying the enemy base, or are there time limits, surrender
+  options, or partial victory states? There should be no timer on how long And the two ways of winning are: destroying the enemy base, or surrendering. For example, if your entire army were to be wiped out, you could surrender and end the game early.                                                                                  
+                  
+  ---                                                                                                                    
+  Design Questions
+                  
+  1. How many boat types exist at launch, and what are their distinct roles? (e.g., fast scout, heavy battleship, submarine, support/repair?) How do they counter each other?      In the beginning, you should start with Two Scout ships. chips and one Medium battlecruiser. But some others may include things like aircraft carriers, small, medium, and large battlecruisers, submarines, and repair ships. And others.
+    2. What does the main base actually do beyond being the thing you defend? Can it shoot back, produce boats indefinitely, or does it have limited HP and no offensive capability? The main base should not have any automatic defensive properties, but you should be able to buy little defensive turrets or mines. And it should Also be a spell caster in which it can use energy that it will automatically generate to cast Abilities.                                                 
+  3. Captain count and variety — How many captains are there total? Are they cosmetically different characters with unique ability sets, or are they more like stat packages you choose from?   There should be a shop in the captain section and there should be. Specific captains that you can buy, or you Hire a random Captain from A level. You could hire a level 1 for a cheap price, but a level 3 for a more expensive price, and the level 3 would have better abilities but would also cost more.                                           
+  4. How does the adaptive difficulty actually change the AI's behavior? Does it build faster, target smarter, use better  unit compositions, or all of the above? What are the distinct difficulty "stages"? When the AI gets harder, it should he boosts all of The things you just mentioned? But it's, speed of production should cap out at some point and The way the leveling system should work is there should be There should be different levels: easy, hard, extra hard, and so on, and it should stop at some point. To level up to the next rank, you have to beat a certain amount of that difficulty to move to the next level.                                   
+  5. Island layout — Are islands always in fixed positions, procedurally placed, or symmetrical (fair for both players)? How many islands per map — 3, 5, 10+?  The island should be randomly generated, but still an even amount of islands on each person's side.And there should be about eight islands in total, and four on each person's side. Each island should constantly be giving in a certain amount of currency, but each island, including the main base, should also give a certain amount of oil. Each ship requires a certain amount of oil to run, and you cannot build more boats than the supply of oil permits.                                                                          
+  6. Upgrades scope — Do upgrades carry into every match permanently (meta-progression), or are some per-match purchases? Can the opponent also upgrade, or is it player-only?  There should be no one-time purchases and all of the upgrades That you buy in the main menu should carry over from every game.                                                                
+  7. Visual perspective — Top-down 2D (classic Battleship/RTS style), isometric, or something else? Pixel art, flat design, or illustrated?  Can you make the art style top-down, like a RTS style, and have the boat be illustrated? It should be easy to tell which boat is which compared to any others.                                                                                              
+  8. How punishing is losing? Do you lose currency, get set back on AI difficulty, or does losing have no meta cost at all? You should not lose any currency, but you should get set back slightly on the adaptive difficulty.                                                                                                                  
+                  
+  ---                                                                                                                    
+  Proposed Feature Additions
+                            
+  Yes 1. Fog of War — Enemy units and islands outside your patrol range are hidden. Scouts and fast boats have larger vision
+  radius. Adds strategic depth to island control and scouting runs.                                                      
+ Yes  2. Weather Events — Random storms that slow movement, reduce accuracy, or block certain island lanes for a period.
+  Makes each match feel distinct and forces adaptation.                                                                  
+  Yes 3. Match Stats & History — After each game, show a summary (boats lost, income earned, damage dealt). Tie this to
+  unlockable achievements ("Sink 50 ships total") that give bonus currency.                                              
+ Yes but make all of the abilitys have hot keys that would be easy to press  4. Special Abilities / Cooldowns — Each boat type has one active ability (e.g., a destroyer can lay a mine, a carrier
+  can launch a fighter for area denial). This adds skill expression beyond just unit production.                         
+ Yes 5. Campaign / Story Mode — A linear sequence of 8–10 handcrafted matches with narrative framing (rival admiral,
+  escalating stakes), separate from Adaptive AI. Completing it unlocks a starting captain.                               
+  Yes 6. Replay / Watch Mode — Let players watch their last match play back. Useful for learning what the AI did and why they
+   lost.                                                                                                                 
+No, you should be able to increase how much each island gives in oil or you could make the island into a fully functioning port by using the in-battle currency to upgrade it.   7. Island Tiers — Not all islands are equal. Small islands give +5% income; large port islands give +15% income and can
+   produce basic boats. Players have to decide whether to contest high-value islands or grab easy ones.                  
+  Yes 8. Captain Synergy Bonuses — When you assign two specific captains to boats in the same fleet group, they trigger a
+  bonus effect (e.g., "Admiral Pair: +10% fleet speed when both are active"). Encourages collecting and experimenting    
+  with combinations.
+
+
+
+
+Can you make me a game in which you are fighting against a AI that will get progressively harder every time you play. In this game youHave to try to defeat the enemy base. It should be a water-based game in which you will use different types of boats to try to expand and defeat your enemy.It should start with a main screen In the main screen, there should be A few different sections, one of which should be a.The battle section will have a few buttons, one of which will be Adaptive AI, and one of which will be practice. These will send you into a game.
+
+The Adaptive AI button should put you into a game in which the opponent starts out easy, and in every match that you win, it will get progressively harder. The practice button should put you against a medium-level bot that does not change no matter how many times you play it.
+For the adaptive AI button, you also make a "Settings" thing near it, and in that, you can adjust how hard or easy it is. If it is too hard, you can go back to when it was easier, and vice versa. Make A settings button for the practice bought two, and in there, you should be able to change the difficulty of the bot you were playing.And then back to the main screen, there should be another button saying "upgrades." In that, you should be able to unlock new boats And upgrades for your boat and your main base.There should also be another section called "Captains," but that should be locked until you beat three.Of the adaptive AIs, and once you do it, it will unlock, and in there you can use the currency.That you get from winning battles to buy and.Upgrade the captains, and those captains You can assign to specific Boats,When you are playing against an opponent, it will give those boats specific bonuses, some of which may be speed or strength.And for in the actual game,The gameplay should go a little like this:
+
+You and your opponent will start on opposite sides of the map. You both have a main base, which the other is trying to destroy. From that main base, you can build boats and assign managers.
+You will get a set amount of income per second at the start of the game. You can increase your income by going out and harboring one of your boats in nearby islands and Each one of those you control willBoost your income and allow Have more in-game money.To buy and produce boats
+

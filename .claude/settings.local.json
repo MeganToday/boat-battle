@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m 'Build initial playable game: RTS ocean strategy with adaptive AI *)"
+    ]
+  }
+}
